@@ -1,5 +1,8 @@
 package ua.privat.task.domains;
 
+import ua.privat.task.repository.TaskRepository;
+
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +19,7 @@ public class Task {
     private LocalDate startDate;
     @Column(name = "end_date")
     private LocalDate endDate;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.REFRESH})
     private List<Person> person;
 
     public String getName() {

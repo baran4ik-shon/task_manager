@@ -1,5 +1,7 @@
 package ua.privat.task.domains;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,8 +28,8 @@ public class Person {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Person setId(Long id) {
+        this.id = id; return this;
     }
 
     public Person() {

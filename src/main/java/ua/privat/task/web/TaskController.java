@@ -28,9 +28,10 @@ public class TaskController {
         try {
             Task task = new Task();
             task.setName("Execute");
-            task.setStartDate(LocalDate.now());
+            task.setStartDate(LocalDate.of(2018, 5, 14));
+            task.setEndDate(LocalDate.of(2018, 5, 16));
             List<Person> people = new ArrayList<>();
-            people.add(new Person("Roman"));
+            people.add(new Person("Roman").setId(1L));
             task.setPerson(people);
             taskService.addTask(task);
         }catch (Exception e) {
@@ -91,5 +92,15 @@ public class TaskController {
             return false;
         }
         return true;
+    }
+
+    @GetMapping("time")
+       public  List<Task> getTime() {
+        try {
+            return taskService.getPersonByTimeLine(LocalDate.of(2018, 5, 15), LocalDate.of(2018, 6, 15));
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }
