@@ -12,6 +12,11 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends CrudRepository<Task, Person> {
-    @Query(nativeQuery = true, value = "SELECT * FROM Task WHERE  end_date between to_date(:startDate,'yyyy.mm.dd') and to_date(:endDate,'yyyy.mm.dd')")
+    @Query(nativeQuery = true, value = "SELECT * FROM Task WHERE start_date <= to_date(:startDate,'yyyy-mm-dd') " +
+                                          "and end_date >= to_date(:startDate,'yyyy-mm-dd') " +
+                                             "or start_date between to_date(:startDate,'yyyy.mm.dd') and to_date(:endDate,'yyyy.mm.dd')")
     List<Task> getAllByTimeLine(@Param("startDate") LocalDate startDate, @Param("endDate")LocalDate endDate);
+
+    @Query("SELECT  t from Task t order by t.startDate")
+    List<Task> getAllOrderByStartDate();
 }

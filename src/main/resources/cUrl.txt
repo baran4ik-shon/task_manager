@@ -5,4 +5,4 @@ curl -H "Content-Type: application/json" -X DELETE -d '{"id":1}' http://localhos
 curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/task
 
 
- curl -H "Content-Type: application/json" -X PUT -d '{"id":6,"name":"old version","startDate":"2018-07-30","endDate":"2018-08-17","person":[{"id":1,"fName":"Roman"}, {"id":2,"fName":"Anton"}, {"id":5,"fName":"Bill"}]}' http://localhost:8080/tasks/6
+ curl -H "Content-Type: application/json" -X POST -d '{"name":"old version","startDate":"2018-07-30","endDate":"2018-08-17","person":[{"id":1,"fName":"Roman"}, {"id":2,"fName":"Anton"}, {"id":3,"fName":"Bill"}]}' http://localhost:8080/tasks

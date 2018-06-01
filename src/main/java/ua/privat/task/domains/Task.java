@@ -1,8 +1,5 @@
 package ua.privat.task.domains;
 
-import ua.privat.task.repository.TaskRepository;
-
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;

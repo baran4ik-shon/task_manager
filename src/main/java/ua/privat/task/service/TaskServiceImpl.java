@@ -10,10 +10,7 @@ import ua.privat.task.repository.TaskRepository;
 
 import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -23,7 +20,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Value("${task.people}")
     private String people;
-
 
     @Autowired
     public TaskServiceImpl(TaskRepository taskRepository, PersonRepository personRepository) {
@@ -37,8 +33,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Iterable<Task> getAllTask() {
-        return taskRepository.findAll();
+    public Iterable<Task> getAllTasks() {
+        return taskRepository.getAllOrderByStartDate();
     }
 
     @Override
@@ -52,8 +48,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getPersonByTimeLine(LocalDate startDate, LocalDate endDate) {
-       return taskRepository.getAllByTimeLine(startDate, endDate);
+    public Set<Person> checkBusy(Task task) {
+        List<Task> tasks = taskRepository.getAllByTimeLine(task.getStartDate(), task.getEndDate());
+        HashSet<Person> busy = new HashSet<>();
+        tasks.forEach(t -> t.getPerson().forEach(person -> {
+            task.getPerson().forEach(p -> {
+                if (p.getId().equals(person.getId()))
+                    busy.add(person);
+            });
+        }));
+            return busy;
     }
 
     @PostConstruct

@@ -1,20 +1,20 @@
 package ua.privat.task.service;
 
+import ua.privat.task.domains.Person;
 import ua.privat.task.domains.Task;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 public interface TaskService {
 
    void addTask(Task task);
 
-   Iterable<Task> getAllTask();
+   Iterable<Task> getAllTasks();
 
    void deleteTask(Task task);
 
    void deleteAll();
 
-   List<Task> getPersonByTimeLine(LocalDate startDate, LocalDate endDate);
+   Set<Person> checkBusy(Task task);
 
 }
