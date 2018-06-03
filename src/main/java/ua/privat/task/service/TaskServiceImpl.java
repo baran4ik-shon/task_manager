@@ -11,6 +11,7 @@ import ua.privat.task.repository.TaskRepository;
 import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -25,6 +26,30 @@ public class TaskServiceImpl implements TaskService {
     public TaskServiceImpl(TaskRepository taskRepository, PersonRepository personRepository) {
         this.taskRepository = taskRepository;
         this.personRepository = personRepository;
+    }
+
+    @PostConstruct
+    private void init() throws UnsupportedEncodingException {
+        String[] names = new String(people.getBytes("ISO-8859-1"), "utf-8").split(", ");
+        List<Person> people = Arrays.stream(names)
+                .map(Person::new)
+                .collect(Collectors.toList());
+        personRepository.saveAll(people);
+    }
+
+    @Override
+    public Set<Person> checkBusy(Task task) {
+        List<Task> tasks = taskRepository.getAllByTimeLine(task.getStartDate(), task.getEndDate());
+        HashSet<Person> busy = new HashSet<>();
+        tasks.forEach(t -> t.getPerson()
+                .forEach(person -> {
+                    task.getPerson()
+                            .forEach(p -> {
+                                if (p.getId().equals(person.getId()))
+                                    busy.add(person);
+                            });
+                }));
+        return busy;
     }
 
     @Override
@@ -47,24 +72,7 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteAll();
     }
 
-    @Override
-    public Set<Person> checkBusy(Task task) {
-        List<Task> tasks = taskRepository.getAllByTimeLine(task.getStartDate(), task.getEndDate());
-        HashSet<Person> busy = new HashSet<>();
-        tasks.forEach(t -> t.getPerson().forEach(person -> {
-            task.getPerson().forEach(p -> {
-                if (p.getId().equals(person.getId()))
-                    busy.add(person);
-            });
-        }));
-            return busy;
-    }
 
-    @PostConstruct
-    private void init() throws UnsupportedEncodingException {
-        String [] names = new String(people.getBytes("ISO-8859-1"), "utf-8").split(", ");
-        List<Person> people = new ArrayList<>();
-        Arrays.stream(names).forEach(name -> people.add(new Person(name)));
-        personRepository.saveAll(people);
-    }
+
+
 }
