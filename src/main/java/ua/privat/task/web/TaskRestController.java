@@ -21,39 +21,38 @@ public class TaskRestController {
         this.taskService = taskService;
     }
 
-    @PostMapping
-    public Response addTask(@RequestBody Task task) {
-        Response response = new Response();
-        try {
-            Set<Person> busy = taskService.checkBusy(task);
-            if (!busy.isEmpty()) {
-                return response.returnError(busy);
-            }
-            taskService.addTask(task);
-        }catch (Exception e) {
-            return response.returnInternalServerError(e);
-        }
-        return response.returnOk();
-    }
 
     @GetMapping
     public  Iterable<Task> getAllTasks() {
         return taskService.getAllTasks();
     }
 
-    @PutMapping({"{id}"})
-    public Response updateTask(@PathVariable Long id, @RequestBody Task task) {
-        Response response = new Response();
+    @PostMapping
+    public Response addTask(@RequestBody Task task) {
         try {
             Set<Person> busy = taskService.checkBusy(task);
             if (!busy.isEmpty()) {
-                return response.returnError(busy);
+                return new Response().returnError(busy);
+            }
+            taskService.addTask(task);
+        }catch (Exception e) {
+            return new Response().returnInternalServerError(e);
+        }
+        return new Response().returnOk();
+    }
+
+    @PutMapping({"{id}"})
+    public Response updateTask(@PathVariable Long id, @RequestBody Task task) {
+        try {
+            Set<Person> busy = taskService.checkBusy(task);
+            if (!busy.isEmpty()) {
+                return new Response().returnError(busy);
             }
             taskService.addTask(task.setId(id));
         }catch (Exception e) {
-            return response.returnInternalServerError(e);
+            return new Response().returnInternalServerError(e);
         }
-        return response.returnOk();
+        return new Response().returnOk();
     }
 
     @DeleteMapping ("{id}")
@@ -64,7 +63,7 @@ public class TaskRestController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAllTask() {
+    public void deleteAllTasks() {
             taskService.deleteAll();
     }
 }

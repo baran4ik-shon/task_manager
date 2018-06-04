@@ -10,14 +10,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.privat.task.domains.Person;
+import ua.privat.task.domains.Task;
 import ua.privat.task.repository.PersonRepository;
+import ua.privat.task.repository.TaskRepository;
 import ua.privat.task.service.TaskService;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,21 +34,61 @@ public class TaskServiceTest {
     TaskService taskService;
     @Autowired
     PersonRepository personRepository;
+    @Autowired
+    private TaskRepository taskRepository;
     @Value("${task.people}")
     private String people;
+    private List<Person> personList;
 
     @Before
     public void init() throws UnsupportedEncodingException {
-        String [] names = new String(people.getBytes("ISO-8859-1"), "utf-8").split(", ");
-        List<Person> people = new ArrayList<>();
-        Arrays.stream(names).forEach(name -> people.add(new Person(name)));
-        personRepository.saveAll(people);
+        personList = Arrays.stream(new String(people.getBytes("ISO-8859-1"), "utf-8").split(", "))
+                .map(Person::new)
+                .collect(Collectors.toList());
+        personRepository.saveAll(personList);
     }
 
     @Test
     public void initTest() throws UnsupportedEncodingException {
         Optional<Person> person = personRepository.findById(1L);
-        String [] names = new String(people.getBytes("ISO-8859-1"), "utf-8").split(", ");
-        assertEquals(names[0], person.get().getfName());
+        assertEquals(personList.get(0).getfName(), person.get().getfName());
+    }
+
+    @Test
+    public void getAllByTimeLine() {
+        List<Task> tasks = new ArrayList<>();
+
+        Task task = new Task();
+        task.setName("task 1");
+        task.setStartDate(LocalDate.of(2018,5,3));
+        task.setEndDate(LocalDate.of(2018,5,7));
+        task.setPerson(Arrays.asList(new Person().setId(1L), new Person().setId(3L)));
+        tasks.add(task);
+
+        Task task2 = new Task();
+        task2.setName("task 2");
+        task2.setStartDate(LocalDate.of(2018,4,3));
+        task2.setEndDate(LocalDate.of(2018,4,17));
+        task2.setPerson(Arrays.asList(new Person().setId(1L),new Person().setId(2L), new Person().setId(3L)));
+        tasks.add(task2);
+
+        Task task3 = new Task();
+        task3.setName("task 3");
+        task3.setStartDate(LocalDate.of(2018,6,3));
+        task3.setEndDate(LocalDate.of(2018,6,5));
+        task3.setPerson(Arrays.asList(new Person().setId(1L)));
+        tasks.add(task3);
+
+        Task task4 = new Task();
+        task4.setName("task 4");
+        task4.setStartDate(LocalDate.of(2018,5,23));
+        task4.setEndDate(LocalDate.of(2018,6,25));
+        task4.setPerson(Arrays.asList(new Person().setId(2L),new Person().setId(4L)));
+        tasks.add(task4);
+
+        taskRepository.saveAll(tasks);
+
+        List<Task> found = taskRepository.getAllByTimeLine(LocalDate.of(2017, 4, 3), LocalDate.of(2018, 5, 3));
+        assertEquals(found.size(), 2);
     }
 }

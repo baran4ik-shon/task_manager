@@ -1,7 +1,6 @@
 package ua.privat.task.dto;
 
 import ua.privat.task.domains.Person;
-
 import java.util.Set;
 
 public class Response {
@@ -29,6 +28,9 @@ public class Response {
         return this;
     }
 
+
+    public Response() {
+    }
 
     public int getCode() {
         return code;

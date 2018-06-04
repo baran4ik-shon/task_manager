@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface TaskRepository extends CrudRepository<Task, Person> {
+public interface TaskRepository extends CrudRepository<Task, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM Task WHERE start_date <= to_date(:startDate,'yyyy-mm-dd') " +
                                           "and end_date >= to_date(:startDate,'yyyy-mm-dd') " +
                                              "or start_date between to_date(:startDate,'yyyy.mm.dd') and to_date(:endDate,'yyyy.mm.dd')")
