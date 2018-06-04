@@ -27,6 +27,11 @@ public class TaskRestController {
         return taskService.getAllTasks();
     }
 
+    @GetMapping("people")
+    public  Iterable<Person> getAllPeople() {
+        return taskService.getAllPeople();
+    }
+
     @PostMapping
     public Response addTask(@RequestBody Task task) {
         try {

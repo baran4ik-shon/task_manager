@@ -72,7 +72,8 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteAll();
     }
 
-
-
-
+    @Override
+    public Iterable<Person> getAllPeople() {
+       return personRepository.findAll();
+    }
 }

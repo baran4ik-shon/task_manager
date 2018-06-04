@@ -17,4 +17,6 @@ public interface TaskService {
 
    Set<Person> checkBusy(Task task);
 
+   Iterable<Person> getAllPeople();
+
 }
