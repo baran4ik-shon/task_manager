@@ -22,7 +22,7 @@ export class AddTaskComponent implements OnInit {
     addTask() {
         this.http.post('/tasks', this.task)
             .subscribe(res => {
-                    this.router.navigate(['/task', res]);
+                    this.router.navigate(['/tasks', res]);
                 }, (err) => {
                     console.log(err);
                 }

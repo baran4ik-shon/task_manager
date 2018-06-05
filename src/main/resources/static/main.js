@@ -87,7 +87,7 @@ var AddTaskComponent = /** @class */ (function () {
         var _this = this;
         this.http.post('/tasks', this.task)
             .subscribe(function (res) {
-            _this.router.navigate(['/task', res]);
+            _this.router.navigate(['/tasks', res]);
         }, function (err) {
             console.log(err);
         });
@@ -477,7 +477,9 @@ var TaskListComponent = /** @class */ (function () {
     }
     TaskListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.http.get('/tasks').subscribe(function (data) {
+        var header = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
+        header = header.set('Content-Type', 'application/json; charset=utf-8');
+        this.http.get('/tasks', { headers: header }).subscribe(function (data) {
             _this.TaskList = data;
         });
     };

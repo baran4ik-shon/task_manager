@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,9 @@ export class TaskListComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('/tasks').subscribe(data => {
+    let header = new HttpHeaders();
+    header = header.set('Content-Type', 'application/json; charset=utf-8');
+    this.http.get('/tasks', {headers:header}).subscribe(data => {
       this.TaskList = data;
     });
   }
