@@ -1,0 +1,23 @@
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+            <th>Название</th>
+            <th>участники</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let task of TaskList">
+            <td>{{ task.startDate }}</td>
+            <td>{{ task.endDate }}</td>
+            <td>{{ task.name }}</td>
+            <td> <span *ngFor="let person of task.person">{{ person.fName }}; </span></td>
+            <td><button class="edit btn btn-success" [routerLink]="['/task-edit', task.id]">Редактировать</button></td>
+            <td><button class="delete btn btn-danger" (click)="deleteTask(task.id)">Удалить</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <button [routerLink]="['/task-create']" class="addTask btn btn-primary">Добавить задание</button>
+</div>

@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>{{ task.name }}</h1>
+  <dl class="list">
+    <dt>Address</dt>
+    <dd>{{ task.startDate }}</dd>
+    <dt>City</dt>
+    <dd>{{ task.endDate }}</dd>
+    <dt>Phone</dt>
+    <dd>{{ task.person }}</dd>
+  </dl>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <a [routerLink]="['/task-edit', task.id]" class="btn btn-success">EDIT</a>
+  </div>
+</div>

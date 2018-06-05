@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>Add New Contact</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <form (ngSubmit)="addTask()" #taskForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" [(ngModel)]="task.name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="startDate">startdate</label>
+          <input type="date" class="form-control" [(ngModel)]="task.startDate" name="startDate" required>
+        </div>
+        <div class="form-group">
+          <label for="endDate">Address</label>
+          <input type="date" class="form-control" [(ngModel)]="task.endDate" name="endDate" required>
+        </div>
+        <div class="form-group">
+          <h1>Участники</h1>
+          <ul>
+            <li  *ngFor="let person of people">
+              <input type="checkbox" class="form-control" [checked]="person.id"  name="personName">
+              <label for="personName">{{person.fName}}</label>
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success" [disabled]="!taskForm.form.valid">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
