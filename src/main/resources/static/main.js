@@ -41,7 +41,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>Add New Contact</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"addTask()\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"name\">Name</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.name\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"startDate\">startdate</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"endDate\">Address</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h1>Участники</h1>\n          <ul>\n            <li  *ngFor=\"let person of people\">\n              <input type=\"checkbox\" class=\"form-control\" [checked]=\"person.id\"  name=\"personName\">\n              <label for=\"personName\">{{person.fName}}</label>\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Save</button>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\r\n  <h1>Cоздание задания</h1>\r\n  <div class=\"row\">\r\n    <div class=\"col-md-6\">\r\n      <form (ngSubmit)=\"addTask()\" #taskForm=\"ngForm\">\r\n        <div class=\"form-group\">\r\n          <label for=\"name\">Название</label>\r\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.name\" name=\"name\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"startDate\">Дата начала</label>\r\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"endDate\">Дата окончания</label>\r\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <h1>Участники</h1>\r\n          <ul>\r\n            <li  *ngFor=\"let person of people\">\r\n              <input type=\"checkbox\" class=\"form-control\" [checked]=\"person.id\"  name=\"personName\">\r\n              <label for=\"personName\">{{person.fName}}</label>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -183,15 +183,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _task_list_task_list_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./task-list/task-list.component */ "./src/app/task-list/task-list.component.ts");
 /* harmony import */ var _add_task_add_task_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./add-task/add-task.component */ "./src/app/add-task/add-task.component.ts");
-/* harmony import */ var _task_details_task_details_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./task-details/task-details.component */ "./src/app/task-details/task-details.component.ts");
-/* harmony import */ var _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./edit-task/task-edit.component */ "./src/app/edit-task/task-edit.component.ts");
+/* harmony import */ var _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./edit-task/task-edit.component */ "./src/app/edit-task/task-edit.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -218,7 +216,7 @@ var appRoutes = [
     },
     {
         path: 'task-edit/:id',
-        component: _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_9__["TaskEditComponent"],
+        component: _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_8__["TaskEditComponent"],
         data: { title: 'Edit Contact' }
     },
 ];
@@ -231,8 +229,7 @@ var AppModule = /** @class */ (function () {
                 _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
                 _task_list_task_list_component__WEBPACK_IMPORTED_MODULE_6__["TaskListComponent"],
                 _add_task_add_task_component__WEBPACK_IMPORTED_MODULE_7__["AddTaskComponent"],
-                _task_details_task_details_component__WEBPACK_IMPORTED_MODULE_8__["TaskDetailsComponent"],
-                _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_9__["TaskEditComponent"]
+                _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_8__["TaskEditComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -269,7 +266,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>ChangeContact</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"updateTask(task.id, task)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"name\">Название</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.name\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"startDate\">Дата начала</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"endDate\">Дата окончания</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h1>Участники</h1>\n          <ul>\n            <li  *ngFor=\"let person of people\">\n              <input type=\"checkbox\" class=\"form-control\" [checked]=\"person.id\"  name=\"personName\">\n              <label for=\"personName\">{{person.fName}}</label>\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container\">\r\n  <h1>Редактирование задания</h1>\r\n  <div class=\"row\">\r\n    <div class=\"col-md-6\">\r\n      <form (ngSubmit)=\"updateTask(task.id, task)\" #taskForm=\"ngForm\">\r\n        <div class=\"form-group\">\r\n          <label for=\"name\">Название</label>\r\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.name\" name=\"name\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"startDate\">Дата начала</label>\r\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"endDate\">Дата окончания</label>\r\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <h1>Участники</h1>\r\n          <ul>\r\n            <li  *ngFor=\"let person of people\">\r\n              <input type=\"checkbox\" class=\"form-control\" [checked]=\"person.id\"  name=\"personName\">\r\n              <label for=\"personName\">{{person.fName}}</label>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -299,13 +296,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var TaskEditComponent = /** @class */ (function () {
-    // id : number;
     function TaskEditComponent(http, router, route) {
         this.http = http;
         this.router = router;
         this.route = route;
         this.people = {};
-        // this.id = this.route.snapshot.params.id;
     }
     TaskEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -322,8 +317,6 @@ var TaskEditComponent = /** @class */ (function () {
     };
     TaskEditComponent.prototype.updateTask = function (id, data) {
         var _this = this;
-        console.log(id);
-        console.log(data);
         this.http.put('/tasks/' + id, data)
             .subscribe(function (res) {
             _this.router.navigate(['/task-list']);
@@ -340,83 +333,6 @@ var TaskEditComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
     ], TaskEditComponent);
     return TaskEditComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/task-details/task-details.component.css":
-/*!*********************************************************!*\
-  !*** ./src/app/task-details/task-details.component.css ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/task-details/task-details.component.html":
-/*!**********************************************************!*\
-  !*** ./src/app/task-details/task-details.component.html ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"container\">\n  <h1>{{ task.name }}</h1>\n  <dl class=\"list\">\n    <dt>Address</dt>\n    <dd>{{ task.startDate }}</dd>\n    <dt>City</dt>\n    <dd>{{ task.endDate }}</dd>\n    <dt>Phone</dt>\n    <dd>{{ task.person }}</dd>\n  </dl>\n</div>\n<div class=\"row\">\n  <div class=\"col-md-12\">\n    <a [routerLink]=\"['/task-edit', task.id]\" class=\"btn btn-success\">EDIT</a>\n  </div>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/task-details/task-details.component.ts":
-/*!********************************************************!*\
-  !*** ./src/app/task-details/task-details.component.ts ***!
-  \********************************************************/
-/*! exports provided: TaskDetailsComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaskDetailsComponent", function() { return TaskDetailsComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var TaskDetailsComponent = /** @class */ (function () {
-    function TaskDetailsComponent(route, http) {
-        this.route = route;
-        this.http = http;
-        this.task = {};
-    }
-    TaskDetailsComponent.prototype.ngOnInit = function () {
-        this.getTaskDetails(this.route.snapshot.params['id']);
-    };
-    TaskDetailsComponent.prototype.getTaskDetails = function (id) {
-        var _this = this;
-        this.http.get('/tasks/' + id).subscribe(function (data) {
-            _this.task = data;
-        });
-    };
-    TaskDetailsComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-task-details',
-            template: __webpack_require__(/*! ./task-details.component.html */ "./src/app/task-details/task-details.component.html"),
-            styles: [__webpack_require__(/*! ./task-details.component.css */ "./src/app/task-details/task-details.component.css")]
-        }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], TaskDetailsComponent);
-    return TaskDetailsComponent;
 }());
 
 
@@ -441,7 +357,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <table class=\"table\">\n        <thead>\n        <tr>\n            <th>Дата начала</th>\n            <th>Дата окончания</th>\n            <th>Название</th>\n            <th>участники</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr *ngFor=\"let task of tasks\">\n            <td>{{ task.startDate }}</td>\n            <td>{{ task.endDate }}</td>\n            <td>{{ task.name }}</td>\n            <td> <span *ngFor=\"let person of task.person\">{{ person.fName }}; </span></td>\n            <td><button class=\"edit btn btn-success\" [routerLink]=\"['/task-edit', task.id]\">Редактировать</button></td>\n            <td><button class=\"delete btn btn-danger\" (click)=\"deleteTask(task.id)\">Удалить</button></td>\n        </tr>\n        </tbody>\n    </table>\n    <button [routerLink]=\"['/task-create']\" class=\"addTask btn btn-primary\">Добавить задание</button>\n</div>\n"
+module.exports = "<div class=\"container\">\r\n    <table class=\"table\">\r\n        <thead>\r\n        <tr>\r\n            <th>Дата начала</th>\r\n            <th>Дата окончания</th>\r\n            <th>Название</th>\r\n            <th>Участники</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody>\r\n        <tr *ngFor=\"let task of tasks\">\r\n            <td>{{ task.startDate }}</td>\r\n            <td>{{ task.endDate }}</td>\r\n            <td>{{ task.name }}</td>\r\n            <td> <span *ngFor=\"let person of task.person\">{{ person.fName }}; </span></td>\r\n            <td><button class=\"edit btn btn-success\" [routerLink]=\"['/task-edit', task.id]\">Редактировать</button></td>\r\n            <td><button class=\"delete btn btn-danger\" (click)=\"deleteTask(task.id)\">Удалить</button></td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n    <button [routerLink]=\"['/task-create']\" class=\"addTask btn btn-primary\">Добавить задание</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -566,7 +482,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/r_poshtak/projects/task_manager/src/frontend/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\task_manager\src\frontend\src\main.ts */"./src/main.ts");
 
 
 /***/ })
