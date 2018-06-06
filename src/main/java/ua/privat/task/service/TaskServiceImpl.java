@@ -76,4 +76,9 @@ public class TaskServiceImpl implements TaskService {
     public Iterable<Person> getAllPeople() {
        return personRepository.findAll();
     }
+
+    @Override
+    public Optional<Task> getTaskById(Long id) {
+        return taskRepository.findById(id);
+    }
 }

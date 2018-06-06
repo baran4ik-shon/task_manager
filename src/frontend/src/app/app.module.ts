@@ -8,16 +8,16 @@ import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
-import { TaskEditComponent } from './task-edit/task-edit.component';
+import { TaskEditComponent } from './edit-task/task-edit.component';
 
 const appRoutes: Routes = [
   {
-    path: 'tasks',
+    path: 'task-list',
     component: TaskListComponent,
     data: { title: 'Task List' }
   },
   { path: '',
-    redirectTo: '/tasks',
+    redirectTo: '/task-list',
     pathMatch: 'full'
   },
    {
@@ -46,7 +46,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true }
+      // { enableTracing: true }
     )
   ],
   providers: [],

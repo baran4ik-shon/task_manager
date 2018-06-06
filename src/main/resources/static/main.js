@@ -86,8 +86,8 @@ var AddTaskComponent = /** @class */ (function () {
     AddTaskComponent.prototype.addTask = function () {
         var _this = this;
         this.http.post('/tasks', this.task)
-            .subscribe(function (res) {
-            _this.router.navigate(['/tasks', res]);
+            .subscribe(function () {
+            _this.router.navigate(['/task-list']);
         }, function (err) {
             console.log(err);
         });
@@ -184,7 +184,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _task_list_task_list_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./task-list/task-list.component */ "./src/app/task-list/task-list.component.ts");
 /* harmony import */ var _add_task_add_task_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./add-task/add-task.component */ "./src/app/add-task/add-task.component.ts");
 /* harmony import */ var _task_details_task_details_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./task-details/task-details.component */ "./src/app/task-details/task-details.component.ts");
-/* harmony import */ var _task_edit_task_edit_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./task-edit/task-edit.component */ "./src/app/task-edit/task-edit.component.ts");
+/* harmony import */ var _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./edit-task/task-edit.component */ "./src/app/edit-task/task-edit.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -203,12 +203,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 var appRoutes = [
     {
-        path: 'tasks',
+        path: 'task-list',
         component: _task_list_task_list_component__WEBPACK_IMPORTED_MODULE_6__["TaskListComponent"],
         data: { title: 'Task List' }
     },
     { path: '',
-        redirectTo: '/tasks',
+        redirectTo: '/task-list',
         pathMatch: 'full'
     },
     {
@@ -218,7 +218,7 @@ var appRoutes = [
     },
     {
         path: 'task-edit/:id',
-        component: _task_edit_task_edit_component__WEBPACK_IMPORTED_MODULE_9__["TaskEditComponent"],
+        component: _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_9__["TaskEditComponent"],
         data: { title: 'Edit Contact' }
     },
 ];
@@ -232,19 +232,114 @@ var AppModule = /** @class */ (function () {
                 _task_list_task_list_component__WEBPACK_IMPORTED_MODULE_6__["TaskListComponent"],
                 _add_task_add_task_component__WEBPACK_IMPORTED_MODULE_7__["AddTaskComponent"],
                 _task_details_task_details_component__WEBPACK_IMPORTED_MODULE_8__["TaskDetailsComponent"],
-                _task_edit_task_edit_component__WEBPACK_IMPORTED_MODULE_9__["TaskEditComponent"]
+                _edit_task_task_edit_component__WEBPACK_IMPORTED_MODULE_9__["TaskEditComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(appRoutes, { enableTracing: true })
+                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(appRoutes)
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/edit-task/task-edit.component.css":
+/*!***************************************************!*\
+  !*** ./src/app/edit-task/task-edit.component.css ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/edit-task/task-edit.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/edit-task/task-edit.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\n  <h1>ChangeContact</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"updateTask(task.id, task)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"name\">Название</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.name\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"startDate\">Дата начала</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"endDate\">Дата окончания</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h1>Участники</h1>\n          <ul>\n            <li  *ngFor=\"let person of people\">\n              <input type=\"checkbox\" class=\"form-control\" [checked]=\"person.id\"  name=\"personName\">\n              <label for=\"personName\">{{person.fName}}</label>\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/edit-task/task-edit.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/edit-task/task-edit.component.ts ***!
+  \**************************************************/
+/*! exports provided: TaskEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaskEditComponent", function() { return TaskEditComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var TaskEditComponent = /** @class */ (function () {
+    // id : number;
+    function TaskEditComponent(http, router, route) {
+        this.http = http;
+        this.router = router;
+        this.route = route;
+        this.people = {};
+        // this.id = this.route.snapshot.params.id;
+    }
+    TaskEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.http.get('/tasks/people').subscribe(function (data) {
+            _this.people = data;
+        });
+        this.getTask(this.route.snapshot.params['id']);
+    };
+    TaskEditComponent.prototype.getTask = function (id) {
+        var _this = this;
+        this.http.get('/tasks/' + id).subscribe(function (data) {
+            _this.task = data;
+        });
+    };
+    TaskEditComponent.prototype.updateTask = function (id, data) {
+        var _this = this;
+        console.log(id);
+        console.log(data);
+        this.http.put('/tasks/' + id, data)
+            .subscribe(function (res) {
+            _this.router.navigate(['/task-list']);
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    TaskEditComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-task-edit',
+            template: __webpack_require__(/*! ./task-edit.component.html */ "./src/app/edit-task/task-edit.component.html"),
+            styles: [__webpack_require__(/*! ./task-edit.component.css */ "./src/app/edit-task/task-edit.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
+    ], TaskEditComponent);
+    return TaskEditComponent;
 }());
 
 
@@ -328,100 +423,6 @@ var TaskDetailsComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/task-edit/task-edit.component.css":
-/*!***************************************************!*\
-  !*** ./src/app/task-edit/task-edit.component.css ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/task-edit/task-edit.component.html":
-/*!****************************************************!*\
-  !*** ./src/app/task-edit/task-edit.component.html ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"container\">\n  <h1>ChangeContact</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"updateTask(task.id)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"name\">Name</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.name\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"startDate\">startdate</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"endDate\">Address</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h1>Участники</h1>\n          <ul>\n            <li  *ngFor=\"let person of people\">\n              <input type=\"checkbox\" class=\"form-control\" [checked]=\"person.id\"  name=\"personName\">\n              <label for=\"personName\">{{person.fName}}</label>\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Save</button>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/task-edit/task-edit.component.ts":
-/*!**************************************************!*\
-  !*** ./src/app/task-edit/task-edit.component.ts ***!
-  \**************************************************/
-/*! exports provided: TaskEditComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaskEditComponent", function() { return TaskEditComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var TaskEditComponent = /** @class */ (function () {
-    function TaskEditComponent(http, router, route) {
-        this.http = http;
-        this.router = router;
-        this.route = route;
-        this.task = {};
-        this.people = {};
-    }
-    TaskEditComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.http.get('/tasks/people').subscribe(function (data) {
-            _this.people = data;
-        });
-        this.getTask(this.route.snapshot.params.id);
-    };
-    TaskEditComponent.prototype.getTask = function (id) {
-        var _this = this;
-        this.http.get('/tasks/' + id).subscribe(function (data) {
-            _this.task = data;
-        });
-    };
-    TaskEditComponent.prototype.updateTask = function (id, data) {
-        var _this = this;
-        console.log(id);
-        this.http.put('/tasks/' + id, data)
-            .subscribe(function (res) {
-            var id = res['id'];
-            _this.router.navigate(['/task', id]);
-        }, function (err) {
-            console.log(err);
-        });
-    };
-    TaskEditComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-task-edit',
-            template: __webpack_require__(/*! ./task-edit.component.html */ "./src/app/task-edit/task-edit.component.html"),
-            styles: [__webpack_require__(/*! ./task-edit.component.css */ "./src/app/task-edit/task-edit.component.css")]
-        }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
-    ], TaskEditComponent);
-    return TaskEditComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/task-list/task-list.component.css":
 /*!***************************************************!*\
   !*** ./src/app/task-list/task-list.component.css ***!
@@ -440,7 +441,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <table class=\"table\">\n        <thead>\n        <tr>\n            <th>Дата начала</th>\n            <th>Дата окончания</th>\n            <th>Название</th>\n            <th>участники</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr *ngFor=\"let task of TaskList\">\n            <td>{{ task.startDate }}</td>\n            <td>{{ task.endDate }}</td>\n            <td>{{ task.name }}</td>\n            <td> <span *ngFor=\"let person of task.person\">{{ person.fName }}; </span></td>\n            <td><button class=\"edit btn btn-success\" [routerLink]=\"['/task-edit', task.id]\">Редактировать</button></td>\n            <td><button class=\"delete btn btn-danger\" (click)=\"deleteTask(task.id)\">Удалить</button></td>\n        </tr>\n        </tbody>\n    </table>\n    <button [routerLink]=\"['/task-create']\" class=\"addTask btn btn-primary\">Добавить задание</button>\n</div>\n"
+module.exports = "<div class=\"container\">\n    <table class=\"table\">\n        <thead>\n        <tr>\n            <th>Дата начала</th>\n            <th>Дата окончания</th>\n            <th>Название</th>\n            <th>участники</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr *ngFor=\"let task of tasks\">\n            <td>{{ task.startDate }}</td>\n            <td>{{ task.endDate }}</td>\n            <td>{{ task.name }}</td>\n            <td> <span *ngFor=\"let person of task.person\">{{ person.fName }}; </span></td>\n            <td><button class=\"edit btn btn-success\" [routerLink]=\"['/task-edit', task.id]\">Редактировать</button></td>\n            <td><button class=\"delete btn btn-danger\" (click)=\"deleteTask(task.id)\">Удалить</button></td>\n        </tr>\n        </tbody>\n    </table>\n    <button [routerLink]=\"['/task-create']\" class=\"addTask btn btn-primary\">Добавить задание</button>\n</div>\n"
 
 /***/ }),
 
@@ -455,8 +456,8 @@ module.exports = "<div class=\"container\">\n    <table class=\"table\">\n      
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaskListComponent", function() { return TaskListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -477,17 +478,15 @@ var TaskListComponent = /** @class */ (function () {
     }
     TaskListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var header = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
-        header = header.set('Content-Type', 'application/json; charset=utf-8');
-        this.http.get('/tasks', { headers: header }).subscribe(function (data) {
-            _this.TaskList = data;
+        this.http.get('/tasks').subscribe(function (data) {
+            _this.tasks = data;
         });
     };
     TaskListComponent.prototype.deleteTask = function (id) {
         var _this = this;
         this.http.delete('/tasks/' + id)
-            .subscribe(function (res) {
-            _this.router.navigate(['/tasks']);
+            .subscribe(function (data) {
+            _this.tasks = _this.tasks.filter(function (u) { return u.id !== id; });
         }, function (err) {
             console.log(err);
         });
@@ -498,7 +497,7 @@ var TaskListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./task-list.component.html */ "./src/app/task-list/task-list.component.html"),
             styles: [__webpack_require__(/*! ./task-list.component.css */ "./src/app/task-list/task-list.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], TaskListComponent);
     return TaskListComponent;
 }());
@@ -567,7 +566,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/r_poshtak/task_manager/src/frontend/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /home/r_poshtak/projects/task_manager/src/frontend/src/main.ts */"./src/main.ts");
 
 
 /***/ })

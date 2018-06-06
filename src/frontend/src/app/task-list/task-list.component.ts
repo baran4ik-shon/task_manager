@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import {Task} from '../model/task.model';
+import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'app-task-list',
@@ -9,21 +10,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TaskListComponent implements OnInit {
 
-    TaskList: any;
+  tasks: Task[];
+
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
-    let header = new HttpHeaders();
-    header = header.set('Content-Type', 'application/json; charset=utf-8');
-    this.http.get('/tasks', {headers:header}).subscribe(data => {
-      this.TaskList = data;
+    this.http.get<Task []>('/tasks').subscribe(data => {
+      this.tasks = data;
     });
   }
 
   deleteTask(id) {
     this.http.delete('/tasks/'+id)
-      .subscribe(res => {
-          this.router.navigate(['/tasks']);
+      .subscribe( data => {
+          this.tasks = this.tasks.filter(u => u.id !== id);
         }, (err) => {
           console.log(err);
         }

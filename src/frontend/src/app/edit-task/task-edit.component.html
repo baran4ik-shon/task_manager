@@ -2,17 +2,17 @@
   <h1>ChangeContact</h1>
   <div class="row">
     <div class="col-md-6">
-      <form (ngSubmit)="updateTask(task.id)" #taskForm="ngForm">
+      <form (ngSubmit)="updateTask(task.id, task)" #taskForm="ngForm">
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">Название</label>
           <input type="text" class="form-control" [(ngModel)]="task.name" name="name" required>
         </div>
         <div class="form-group">
-          <label for="startDate">startdate</label>
+          <label for="startDate">Дата начала</label>
           <input type="date" class="form-control" [(ngModel)]="task.startDate" name="startDate" required>
         </div>
         <div class="form-group">
-          <label for="endDate">Address</label>
+          <label for="endDate">Дата окончания</label>
           <input type="date" class="form-control" [(ngModel)]="task.endDate" name="endDate" required>
         </div>
         <div class="form-group">
@@ -25,7 +25,7 @@
           </ul>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-success" [disabled]="!taskForm.form.valid">Save</button>
+          <button type="submit" class="btn btn-success" [disabled]="!taskForm.form.valid">Сохранить</button>
         </div>
       </form>
     </div>

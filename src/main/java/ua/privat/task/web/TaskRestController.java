@@ -2,15 +2,13 @@ package ua.privat.task.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import ua.privat.task.domains.Person;
 import ua.privat.task.domains.Task;
 import ua.privat.task.dto.Response;
 import ua.privat.task.service.TaskService;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -24,11 +22,15 @@ public class TaskRestController {
         this.taskService = taskService;
     }
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public  Iterable<Task> getAllTasks() {
         return taskService.getAllTasks();
     }
 
+    @GetMapping("{id}")
+    public Optional<Task> getTaskById(@PathVariable Long id) {
+        return taskService.getTaskById(id);
+    }
 
     @GetMapping("people")
     public  Iterable<Person> getAllPeople() {

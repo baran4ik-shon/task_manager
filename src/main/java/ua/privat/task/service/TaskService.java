@@ -3,6 +3,7 @@ package ua.privat.task.service;
 import ua.privat.task.domains.Person;
 import ua.privat.task.domains.Task;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface TaskService {
@@ -18,5 +19,7 @@ public interface TaskService {
    Set<Person> checkBusy(Task task);
 
    Iterable<Person> getAllPeople();
+
+   Optional<Task> getTaskById(Long id);
 
 }
