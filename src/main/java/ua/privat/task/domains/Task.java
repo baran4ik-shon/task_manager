@@ -1,5 +1,7 @@
 package ua.privat.task.domains;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -10,8 +12,9 @@ public class Task {
     @Id @GeneratedValue
     @Column(name = "task_id")
     private Long id;
+    @JsonProperty("taskName")
     @Column(name = "task_name")
-    private String name;
+    private String taskName;
     @Column(name = "start_date")
     private LocalDate startDate;
     @Column(name = "end_date")
@@ -20,11 +23,11 @@ public class Task {
     private List<Person> person;
 
     public String getName() {
-        return name;
+        return taskName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String taskName) {
+        this.taskName = taskName;
     }
 
     public LocalDate getStartDate() {
@@ -64,7 +67,7 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + taskName + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", person=" + person +

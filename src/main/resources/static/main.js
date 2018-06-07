@@ -41,7 +41,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <h1>Cоздание задания</h1>\r\n  <div class=\"row\">\r\n    <div class=\"col-md-6\">\r\n      <form (ngSubmit)=\"addTask()\" #taskForm=\"ngForm\">\r\n        <div class=\"form-group\">\r\n          <label for=\"name\">Название</label>\r\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.name\" name=\"name\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"startDate\">Дата начала</label>\r\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"endDate\">Дата окончания</label>\r\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <h1>Участники</h1>\r\n          <ul>\r\n            <li  *ngFor=\"let person of people\">\r\n              <input type=\"checkbox\" class=\"form-control\" [checked]=\"person.id\"  name=\"personName\">\r\n              <label for=\"personName\">{{person.fName}}</label>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\n  <h1>Cоздание задания</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"addTask(task)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"name\">Название</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.taskName\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"startDate\">Дата начала</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"endDate\">Дата окончания</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <!--<div class=\"form-group\">-->\n          <h1>Участники</h1>\n          <table class=\"table\">\n            <tbody>\n            <tr  *ngFor=\"let person of people\">\n              <td>  <input type=\"checkbox\" class=\"form-control\" [(ngModel)]=\"person.is\"  name=\"personName\"></td>\n              <td><label for=\"personName\">{{person.fName}}</label></td>\n            </tr>\n            </tbody>\n          </table>\n          <!--<ul>-->\n            <!--<li  *ngFor=\"let person of people\">-->\n              <!--<input type=\"checkbox\" class=\"form-control\" [(ngModel)]=\"person.is\"  name=\"personName\">-->\n              <!--<label for=\"personName\">{{person.fName}}</label>-->\n            <!--</li>-->\n          <!--</ul>-->\n        <!--</div>-->\n        <div class=\"form-group\">\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -58,6 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _model_task_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../model/task.model */ "./src/app/model/task.model.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -70,22 +71,25 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AddTaskComponent = /** @class */ (function () {
     function AddTaskComponent(http, router) {
         this.http = http;
         this.router = router;
-        this.task = {};
-        this.people = {};
     }
     AddTaskComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.task = new _model_task_model__WEBPACK_IMPORTED_MODULE_3__["Task"]();
         this.http.get('/tasks/people').subscribe(function (data) {
             _this.people = data;
         });
     };
-    AddTaskComponent.prototype.addTask = function () {
+    AddTaskComponent.prototype.addTask = function (data) {
         var _this = this;
-        this.http.post('/tasks', this.task)
+        this.people.forEach(function (p) { return console.log(p.is); });
+        data.person = this.people.filter(function (p) { return p.is; });
+        console.log(data.person);
+        this.http.post('/tasks', data)
             .subscribe(function () {
             _this.router.navigate(['/task-list']);
         }, function (err) {
@@ -266,7 +270,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <h1>Редактирование задания</h1>\r\n  <div class=\"row\">\r\n    <div class=\"col-md-6\">\r\n      <form (ngSubmit)=\"updateTask(task.id, task)\" #taskForm=\"ngForm\">\r\n        <div class=\"form-group\">\r\n          <label for=\"name\">Название</label>\r\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.name\" name=\"name\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"startDate\">Дата начала</label>\r\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"endDate\">Дата окончания</label>\r\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <h1>Участники</h1>\r\n          <ul>\r\n            <li  *ngFor=\"let person of people\">\r\n              <input type=\"checkbox\" class=\"form-control\" [checked]=\"person.id\"  name=\"personName\">\r\n              <label for=\"personName\">{{person.fName}}</label>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\n  <h1>Редактирование задания</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"updateTask(task.id, task)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"name\">Название</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.taskName\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"startDate\">Дата начала</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"endDate\">Дата окончания</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h1>Участники</h1>\n          <ul>\n            <li *ngFor=\"let person of people\">\n              <label for=\"personName\">{{person.fName}}</label>\n              <input name=\"mpf\" type=\"checkbox\" [(ngModel)]=\"person.is\" />\n              <!--<input type=\"checkbox\" class=\"form-control\" ng-model =\"person.is\"  name=\"personName\">-->\n              <!--<label for=\"personName\">{{person.fName}}</label>-->\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -283,6 +287,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _model_task_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../model/task.model */ "./src/app/model/task.model.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -295,15 +300,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var TaskEditComponent = /** @class */ (function () {
     function TaskEditComponent(http, router, route) {
         this.http = http;
         this.router = router;
         this.route = route;
-        this.people = {};
     }
     TaskEditComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.task = new _model_task_model__WEBPACK_IMPORTED_MODULE_3__["Task"]();
         this.http.get('/tasks/people').subscribe(function (data) {
             _this.people = data;
         });
@@ -317,6 +323,8 @@ var TaskEditComponent = /** @class */ (function () {
     };
     TaskEditComponent.prototype.updateTask = function (id, data) {
         var _this = this;
+        data.person = this.people.filter(function (p) { return p.is; });
+        console.log(data.person);
         this.http.put('/tasks/' + id, data)
             .subscribe(function (res) {
             _this.router.navigate(['/task-list']);
@@ -333,6 +341,34 @@ var TaskEditComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
     ], TaskEditComponent);
     return TaskEditComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/model/task.model.ts":
+/*!*************************************!*\
+  !*** ./src/app/model/task.model.ts ***!
+  \*************************************/
+/*! exports provided: Person, Task */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Person", function() { return Person; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Task", function() { return Task; });
+var Person = /** @class */ (function () {
+    function Person() {
+        this.is = false;
+    }
+    return Person;
+}());
+
+var Task = /** @class */ (function () {
+    function Task() {
+    }
+    return Task;
 }());
 
 
@@ -357,7 +393,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <table class=\"table\">\r\n        <thead>\r\n        <tr>\r\n            <th>Дата начала</th>\r\n            <th>Дата окончания</th>\r\n            <th>Название</th>\r\n            <th>Участники</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody>\r\n        <tr *ngFor=\"let task of tasks\">\r\n            <td>{{ task.startDate }}</td>\r\n            <td>{{ task.endDate }}</td>\r\n            <td>{{ task.name }}</td>\r\n            <td> <span *ngFor=\"let person of task.person\">{{ person.fName }}; </span></td>\r\n            <td><button class=\"edit btn btn-success\" [routerLink]=\"['/task-edit', task.id]\">Редактировать</button></td>\r\n            <td><button class=\"delete btn btn-danger\" (click)=\"deleteTask(task.id)\">Удалить</button></td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n    <button [routerLink]=\"['/task-create']\" class=\"addTask btn btn-primary\">Добавить задание</button>\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\n    <table class=\"table\">\n        <thead>\n        <tr>\n            <th>Дата начала</th>\n            <th>Дата окончания</th>\n            <th>Название</th>\n            <th>Участники</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr *ngFor=\"let task of tasks\">\n            <td>{{ task.startDate | date: 'd-MM-yyyy' }}</td>\n            <td>{{ task.endDate | date: 'd-MM-yyyy'}}</td>\n            <td>{{ task.taskName }}</td>\n            <td> <span *ngFor=\"let person of task.person\">{{ person.fName }}; </span></td>\n            <td><button class=\"edit btn btn-success\" [routerLink]=\"['/task-edit', task.id]\">Редактировать</button></td>\n            <td><button class=\"delete btn btn-danger\" (click)=\"deleteTask(task.id)\">Удалить</button></td>\n        </tr>\n        </tbody>\n    </table>\n    <button [routerLink]=\"['/task-create']\" class=\"addTask btn btn-primary\">Добавить задание</button>\n</div>\n"
 
 /***/ }),
 
@@ -482,7 +518,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\task_manager\src\frontend\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /home/r_poshtak/projects/task_manager/src/frontend/src/main.ts */"./src/main.ts");
 
 
 /***/ })

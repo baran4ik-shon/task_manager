@@ -10,9 +10,9 @@
         </thead>
         <tbody>
         <tr *ngFor="let task of tasks">
-            <td>{{ task.startDate }}</td>
-            <td>{{ task.endDate }}</td>
-            <td>{{ task.name }}</td>
+            <td>{{ task.startDate | date: 'd-MM-yyyy' }}</td>
+            <td>{{ task.endDate | date: 'd-MM-yyyy'}}</td>
+            <td>{{ task.taskName }}</td>
             <td> <span *ngFor="let person of task.person">{{ person.fName }}; </span></td>
             <td><button class="edit btn btn-success" [routerLink]="['/task-edit', task.id]">Редактировать</button></td>
             <td><button class="delete btn btn-danger" (click)="deleteTask(task.id)">Удалить</button></td>

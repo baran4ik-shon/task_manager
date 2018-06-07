@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import {Task} from '../model/task.model';
+import {Person, Task} from '../model/task.model';
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-task-edit',
@@ -9,13 +10,13 @@ import {Task} from '../model/task.model';
   styleUrls: ['./task-edit.component.css']
 })
 export class TaskEditComponent implements OnInit {
-
   task : Task;
-  people = {};
+  people : Person[];
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.http.get('/tasks/people').subscribe(data => {
+    this.task = new Task();
+    this.http.get<Person[]>('/tasks/people').subscribe(data => {
       this.people = data;
     });
     this.getTask(this.route.snapshot.params['id']);
@@ -27,7 +28,9 @@ export class TaskEditComponent implements OnInit {
     });
   }
 
-  updateTask(id,data) {
+  updateTask(id,data:Task) {
+    data.person = this.people.filter(p => p.is);
+    console.log(data.person);
     this.http.put('/tasks/'+ id, data)
       .subscribe(res => {
           this.router.navigate(['/task-list']);

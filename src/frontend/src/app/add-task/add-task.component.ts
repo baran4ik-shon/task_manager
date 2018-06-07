@@ -1,6 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import {Person, Task} from "../model/task.model";
 
 @Component({
   selector: 'app-add-task',
@@ -8,24 +10,28 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
-    task = {};
-    people = {};
+  task : Task;
+  people : Person[];
 
-    constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-      this.http.get('/tasks/people').subscribe(data => {
-          this.people = data;
-      });
+    this.task = new Task();
+    this.http.get<Person[]>('/tasks/people').subscribe(data => {
+      this.people = data;
+    });
   }
 
-    addTask() {
-        this.http.post('/tasks', this.task)
-            .subscribe(() => {
-                    this.router.navigate(['/task-list']);
-                }, (err) => {
-                    console.log(err);
-                }
-            );
-    }
+  addTask(data : Task) {
+    this.people.forEach(p => console.log(p.is));
+    data.person = this.people.filter(p => p.is);
+    console.log(data.person);
+    this.http.post('/tasks', data)
+      .subscribe(() => {
+          this.router.navigate(['/task-list']);
+        }, (err) => {
+          console.log(err);
+        }
+      );
+  }
 }

@@ -1,12 +1,13 @@
-class Person {
+export class Person {
   id: number;
   fName: string;
+  is  = false;
 }
 
 export class Task {
   id: number;
-  name: string;
-  startDate: string;
-  endDate: string;
-  person: Person;
+  taskName : string;
+  startDate: Date;
+  endDate: Date;
+  person: Person[];
 }

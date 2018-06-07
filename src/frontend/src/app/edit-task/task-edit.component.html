@@ -5,7 +5,7 @@
       <form (ngSubmit)="updateTask(task.id, task)" #taskForm="ngForm">
         <div class="form-group">
           <label for="name">Название</label>
-          <input type="text" class="form-control" [(ngModel)]="task.name" name="name" required>
+          <input type="text" class="form-control" [(ngModel)]="task.taskName" name="name" required>
         </div>
         <div class="form-group">
           <label for="startDate">Дата начала</label>
@@ -18,9 +18,11 @@
         <div class="form-group">
           <h1>Участники</h1>
           <ul>
-            <li  *ngFor="let person of people">
-              <input type="checkbox" class="form-control" [checked]="person.id"  name="personName">
+            <li *ngFor="let person of people">
               <label for="personName">{{person.fName}}</label>
+              <input name="mpf" type="checkbox" [(ngModel)]="person.is" />
+              <!--<input type="checkbox" class="form-control" ng-model ="person.is"  name="personName">-->
+              <!--<label for="personName">{{person.fName}}</label>-->
             </li>
           </ul>
         </div>
