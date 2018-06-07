@@ -39,15 +39,18 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Set<Person> checkBusy(Task task) {
-        List<Task> tasks = taskRepository.getAllByTimeLine(task.getStartDate(), task.getEndDate());
+        List<Task> tasks;
+        if (task.getId() == null)
+            tasks = taskRepository.getAllByTimeLine(task.getStartDate(), task.getEndDate());
+        else
+            tasks = taskRepository.getAllByTimeLineForUpdate(task.getId(), task.getStartDate(), task.getEndDate());
         HashSet<Person> busy = new HashSet<>();
-        tasks.forEach(t -> t.getPerson()
-                .forEach(person -> {
-                    task.getPerson()
-                            .forEach(p -> {
-                                if (p.getId().equals(person.getId()))
-                                    busy.add(person);
-                            });
+        tasks.forEach(t ->
+                t.getPerson().forEach(person -> {
+                    task.getPerson().forEach(p -> {
+                        if (p.getId().equals(person.getId()))
+                            busy.add(person);
+                    });
                 }));
         return busy;
     }

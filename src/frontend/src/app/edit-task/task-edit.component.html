@@ -17,14 +17,14 @@
         </div>
         <div class="form-group">
           <h1>Участники</h1>
-          <ul>
-            <li *ngFor="let person of people">
-              <label for="personName">{{person.fName}}</label>
-              <input name="mpf" type="checkbox" [(ngModel)]="person.is" />
-              <!--<input type="checkbox" class="form-control" ng-model ="person.is"  name="personName">-->
-              <!--<label for="personName">{{person.fName}}</label>-->
-            </li>
-          </ul>
+          <table class="table">
+            <tbody>
+            <tr  *ngFor="let person of people">
+              <td>  <input type="checkbox" class="form-control" [(ngModel)]="person.is"  name="personName"></td>
+              <td><label for="personName">{{person.fName}}</label></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-success" [disabled]="!taskForm.form.valid">Сохранить</button>
