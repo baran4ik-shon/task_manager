@@ -1,7 +1,7 @@
-package ua.privat.task.repository;
+package com.hezerinkl.task.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import ua.privat.task.domains.Person;
+import com.hezerinkl.task.domains.Person;
 
 public interface PersonRepository extends CrudRepository <Person, Long> {
 }

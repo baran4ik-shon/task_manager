@@ -1,4 +1,4 @@
-package ua.privat.task.web;
+package com.hezerinkl.task.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

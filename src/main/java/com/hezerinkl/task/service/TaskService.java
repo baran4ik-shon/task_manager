@@ -1,10 +1,9 @@
-package ua.privat.task.service;
+package com.hezerinkl.task.service;
 
-import ua.privat.task.domains.Person;
-import ua.privat.task.domains.Task;
+import com.hezerinkl.task.domains.Person;
+import com.hezerinkl.task.domains.Task;
 
 import java.util.Optional;
-import java.util.Set;
 
 public interface TaskService {
 
@@ -16,7 +15,7 @@ public interface TaskService {
 
    void deleteAll();
 
-   Set<Person> checkBusy(Task task);
+   String checkBusy(Task task);
 
    Iterable<Person> getAllPeople();
 

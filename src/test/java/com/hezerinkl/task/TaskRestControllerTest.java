@@ -1,4 +1,4 @@
-package ua.privat.task;
+package com.hezerinkl.task;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.privat.task.domains.Person;
-import ua.privat.task.domains.Task;
+import com.hezerinkl.task.domains.Person;
+import com.hezerinkl.task.domains.Task;
 
 import java.time.LocalDate;
 import java.util.Arrays;

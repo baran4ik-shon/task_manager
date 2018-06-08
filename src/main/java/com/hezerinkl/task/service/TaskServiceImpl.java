@@ -1,12 +1,12 @@
-package ua.privat.task.service;
+package com.hezerinkl.task.service;
 
+import com.hezerinkl.task.domains.Task;
+import com.hezerinkl.task.repository.PersonRepository;
+import com.hezerinkl.task.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ua.privat.task.domains.Person;
-import ua.privat.task.domains.Task;
-import ua.privat.task.repository.PersonRepository;
-import ua.privat.task.repository.TaskRepository;
+import com.hezerinkl.task.domains.Person;
 
 import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
@@ -38,9 +38,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Set<Person> checkBusy(Task task) {
+    public String checkBusy(Task task) {
         List<Task> tasks;
-        if (task.getId() == null)
+        if (task.getId() == null) // check update or new task
             tasks = taskRepository.getAllByTimeLine(task.getStartDate(), task.getEndDate());
         else
             tasks = taskRepository.getAllByTimeLineForUpdate(task.getId(), task.getStartDate(), task.getEndDate());
@@ -52,7 +52,14 @@ public class TaskServiceImpl implements TaskService {
                             busy.add(person);
                     });
                 }));
-        return busy;
+        if (!busy.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            busy.forEach(p -> sb.append(p.getfName()).append(", "));
+            if (busy.size() >1)
+                return sb.toString() + " - заняты в данный промежуток времени";
+            else return sb.toString() + " - занят в данный промежуток времени";
+        }
+        return null;
     }
 
     @Override

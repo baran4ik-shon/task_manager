@@ -1,4 +1,4 @@
-package ua.privat.task.domains;
+package com.hezerinkl.task.domains;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

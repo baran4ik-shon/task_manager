@@ -1,8 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Person, Task} from "../model/task.model";
+import {Observable} from "rxjs/internal/Observable";
 
 @Component({
   selector: 'app-add-task',
@@ -12,6 +13,7 @@ import {Person, Task} from "../model/task.model";
 export class AddTaskComponent implements OnInit {
   task : Task;
   people : Person[];
+  public errorMsg: string;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -25,13 +27,16 @@ export class AddTaskComponent implements OnInit {
   addTask(data : Task) {
     this.people.forEach(p => console.log(p.is));
     data.person = this.people.filter(p => p.is);
-    console.log(data.person);
     this.http.post('/tasks', data)
       .subscribe(() => {
           this.router.navigate(['/task-list']);
-        }, (err) => {
-          console.log(err);
-        }
-      );
+        }, err=> {
+         this.errorMsg = (<HttpErrorResponse> err).error.message;
+        });
   }
+
+  errorHandler(error: HttpErrorResponse) {
+    return Observable.throw(error.message);
+  }
+
 }

@@ -25,17 +25,13 @@
             </tr>
             </tbody>
           </table>
-          <!--<ul>-->
-            <!--<li  *ngFor="let person of people">-->
-              <!--<input type="checkbox" class="form-control" [(ngModel)]="person.is"  name="personName">-->
-              <!--<label for="personName">{{person.fName}}</label>-->
-            <!--</li>-->
-          <!--</ul>-->
         </div>
         <div class="form-group">
+          <a href="/task-list" type="submit" class="btn btn-cancel">Отмена</a>
           <button type="submit" class="btn btn-success" [disabled]="!taskForm.form.valid">Сохранить</button>
         </div>
       </form>
+      <div style="color: red;  border-radius: 5px; padding: 10px; font-size: 16px">{{errorMsg}}</div>
     </div>
   </div>
 </div>
