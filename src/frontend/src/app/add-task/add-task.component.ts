@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Person, Task} from "../model/task.model";
-import {Observable} from "rxjs/internal/Observable";
 
 @Component({
   selector: 'app-add-task',
@@ -13,7 +12,7 @@ import {Observable} from "rxjs/internal/Observable";
 export class AddTaskComponent implements OnInit {
   task : Task;
   people : Person[];
-  public errorMsg: string;
+  errorMsg: string;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -34,9 +33,4 @@ export class AddTaskComponent implements OnInit {
          this.errorMsg = (<HttpErrorResponse> err).error.message;
         });
   }
-
-  errorHandler(error: HttpErrorResponse) {
-    return Observable.throw(error.message);
-  }
-
 }

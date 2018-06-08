@@ -1,0 +1,7 @@
+ul {  padding-left: 0;}
+ul li {  list-style: none;  margin-bottom: 15px;}
+ul li input[type = "checkbox"] {  width: inherit;  height: inherit;  display: inline;}
+ul li label {  margin-left: 20px;}
+.form-group .btn-cancel {  margin-right: 50px;}
+.buttons-group {  margin-top: 20px;}
+

@@ -1,5 +1,7 @@
 package com.hezerinkl.task;
 
+import com.hezerinkl.task.domains.Person;
+import com.hezerinkl.task.domains.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.hezerinkl.task.domains.Person;
-import com.hezerinkl.task.domains.Task;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -31,14 +31,12 @@ public class TaskRestControllerTest {
     public void getAllTasks() {
         ResponseEntity< List<Task>> responseEntity =
                 restTemplate.exchange("http://localhost:8080/tasks", HttpMethod.GET, null, new ParameterizedTypeReference<List<Task>>(){});
-        List<Task> task = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-//        task.forEach(t -> assertEquals(t.getName(), "testy"));
     }
 
 
     @Test
-    public void addTask() {
+    public void whenAddTask() {
         Task task = new Task();
         task.setName("Unit test");
         task.setStartDate(LocalDate.of(2018,6,3));
@@ -48,7 +46,7 @@ public class TaskRestControllerTest {
     }
 
     @Test
-    public void deleteTask() {
+    public void whenDeleteTask() {
         Task task = new Task();
         task.setName("Unit test");
         task.setStartDate(LocalDate.of(2018,6,3));

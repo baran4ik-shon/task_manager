@@ -1,8 +1,0 @@
-curl -H "Content-Type: application/json" -X PUT -d '{"name":"new version","startDate":"2018-05-30","endDate":null,"person":[{"fName":"Roman"}]}' http://localhost:8080/tasks/5
-
-curl -H "Content-Type: application/json" -X DELETE -d '{"id":1}' http://localhost:8080/tasks/1
-
-curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/task
-
-
- curl -H "Content-Type: application/json" -X POST -d '{"taskName":"old version","startDate":"2018-07-30","endDate":"2018-08-17","person":[{"id":1,"fName":"Roman"}, {"id":2,"fName":"Anton"}, {"id":3,"fName":"Bill"}]}' http://localhost:8080/tasks

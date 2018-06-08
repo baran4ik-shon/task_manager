@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Person, Task} from '../model/task.model';
-import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-task-edit',
   templateUrl: './task-edit.component.html',
-  styleUrls: ['./task-edit.component.css']
+  styleUrls: ['../add-task/add-task.component.css']
 })
 export class TaskEditComponent implements OnInit {
   task : Task;
   people : Person[];
+  errorMsg: string;
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class TaskEditComponent implements OnInit {
       .subscribe(res => {
           this.router.navigate(['/task-list']);
         }, (err) => {
-          console.log(err);
+        this.errorMsg = (<HttpErrorResponse> err).error.message;
         }
       );
   }

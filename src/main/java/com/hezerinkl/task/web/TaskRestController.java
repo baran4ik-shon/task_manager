@@ -28,6 +28,7 @@ public class TaskRestController {
         return taskService.getAllTasks();
     }
 
+
     @GetMapping("{id}")
     public Optional<Task> getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id);

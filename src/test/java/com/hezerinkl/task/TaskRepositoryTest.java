@@ -33,7 +33,7 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    public void whenFindByTimeLine() {
+    public void whenFindByTimeId() {
         // given
         Task task = new Task();
         task.setName("Test");

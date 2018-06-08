@@ -49,9 +49,9 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void initTest() throws UnsupportedEncodingException {
-        Optional<Person> person = personRepository.findById(1L);
-        assertEquals(personList.get(0).getfName(), person.get().getfName());
+    public void initTest() {
+        Iterable<Person> findPeople = personRepository.findAll();
+        assertEquals(findPeople.spliterator().estimateSize(), personList.size());
     }
 
     @Test

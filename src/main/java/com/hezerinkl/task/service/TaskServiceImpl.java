@@ -28,6 +28,10 @@ public class TaskServiceImpl implements TaskService {
         this.personRepository = personRepository;
     }
 
+    /**
+     *Load the list of participants
+     * @throws UnsupportedEncodingException
+     */
     @PostConstruct
     private void init() throws UnsupportedEncodingException {
         String[] names = new String(people.getBytes("ISO-8859-1"), "utf-8").split(", ");
@@ -37,6 +41,11 @@ public class TaskServiceImpl implements TaskService {
         personRepository.saveAll(people);
     }
 
+    /**
+     * Check, person busy at a given time
+     * @param task - task with a certain time interval
+     * @return String busy people or null if they do not exist
+     */
     @Override
     public String checkBusy(Task task) {
         List<Task> tasks;
@@ -56,8 +65,8 @@ public class TaskServiceImpl implements TaskService {
             StringBuilder sb = new StringBuilder();
             busy.forEach(p -> sb.append(p.getfName()).append(", "));
             if (busy.size() >1)
-                return sb.toString() + " - заняты в данный промежуток времени";
-            else return sb.toString() + " - занят в данный промежуток времени";
+                return sb.toString() + " - участвуют в других задачах в данный промежуток времени";
+            else return sb.toString() + " - участвует в других задачах в данный промежуток времени";
         }
         return null;
     }
