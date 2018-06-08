@@ -1,4 +1,12 @@
-# task_manager
+# Requirements
+## Spring Boot 2.x and Angular 6.x
+
+# Application start
+  1. clone the project;
+  2. cd task_manager
+  3. execute: mvn spring-boot:run
+  4. open your browser at  http://localhost:8080/task-list
+# ТЗ:
 Разработать приложение для ведения списка коллективных задач.
 Описание интерфейсов:
 1. Список запланированных задач (list.png)
