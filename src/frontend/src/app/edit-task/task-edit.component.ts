@@ -30,7 +30,6 @@ export class TaskEditComponent implements OnInit {
 
   updateTask(id,data:Task) {
     data.person = this.people.filter(p => p.is);
-    console.log(data.person);
     this.http.put('/tasks/'+ id, data)
       .subscribe(res => {
           this.router.navigate(['/task-list']);

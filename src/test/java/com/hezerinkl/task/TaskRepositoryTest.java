@@ -36,7 +36,7 @@ public class TaskRepositoryTest {
     public void whenFindByTimeId() {
         // given
         Task task = new Task();
-        task.setName("Test");
+        task.setTaskName("Test");
         task.setPerson(Collections.singletonList(new Person(1L, "Роман")));
         task.setStartDate(LocalDate.of(2018, 5, 14));
         task.setEndDate(LocalDate.of(2018, 5, 25));
@@ -44,7 +44,7 @@ public class TaskRepositoryTest {
         taskRepository.save(task);
         // when
         Task task1 = taskRepository.findById(task.getId()).get();
-        assertEquals(task1.getName(), task.getName());
+        assertEquals(task1.getTaskName(), task.getTaskName());
         assertEquals(task1.getPerson(), task.getPerson());
     }
 }

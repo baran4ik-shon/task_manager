@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ul {  padding-left: 0;}\nul li {  list-style: none;  margin-bottom: 15px;}\nul li input[type = \"checkbox\"] {  width: inherit;  height: inherit;  display: inline;}\nul li label {  margin-left: 20px;}\n.form-group .btn-cancel {  margin-right: 50px;}\n.buttons-group {  margin-top: 20px;}\n\n"
+module.exports = "ul {  padding-left: 0;}\n\nul li {  list-style: none;  margin-bottom: 15px;}\n\nul li input[type = \"checkbox\"] {  width: inherit;  height: inherit;  display: inline;}\n\nul li label label {  margin-left: 10px;}\n\n.form-group .btn-cancel {  margin-right: 30px;}\n\n.buttons-group {  margin-top: 20px;}\n\n.error {\n  color: red;\n  border-radius: 5px;\n  padding: 10px;\n  font-size: 16px;\n}\n\n"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "ul {  padding-left: 0;}\nul li {  list-style: none;  margin-bo
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>Cоздание задания</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"addTask(task)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"name\">Название</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.taskName\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"startDate\">Дата начала</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"endDate\">Дата окончания</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h1>Участники</h1>\n          <ul>\n            <li *ngFor=\"let person of people\">\n              <input type=\"checkbox\" class=\"form-control\" [(ngModel)]=\"person.is\"  name=\"personName\">\n              <label for=\"personName\">{{person.fName}}</label>\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <a href=\"/task-list\" type=\"submit\" class=\"btn btn-cancel\">Отмена</a>\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\n        </div>\n      </form>\n      <div style=\"color: red;  border-radius: 5px; padding: 10px; font-size: 16px\">{{errorMsg}}</div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <h1>Cоздание задания</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"addTask(task)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label>Название</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.taskName\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label>Дата начала</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label>Дата окончания</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h2>Участники</h2>\n          <ul>\n            <li *ngFor=\"let person of people\">\n              <label class=\"checkbox-inline\">\n                <input type=\"checkbox\" [(ngModel)]=\"person.is\" name=\"personName\"> <label>{{person.fName}}</label>\n              </label>\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <a href=\"/task-list\" type=\"submit\" class=\"btn btn-cancel\">Отмена</a>\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\n        </div>\n      </form>\n      <div class=\"error\">{{errorMsg}}</div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -86,7 +86,6 @@ var AddTaskComponent = /** @class */ (function () {
     };
     AddTaskComponent.prototype.addTask = function (data) {
         var _this = this;
-        this.people.forEach(function (p) { return console.log(p.is); });
         data.person = this.people.filter(function (p) { return p.is; });
         this.http.post('/tasks', data)
             .subscribe(function () {
@@ -258,7 +257,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>Редактирование задания</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"updateTask(task.id, task)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"name\">Название</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.taskName\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"startDate\">Дата начала</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"endDate\">Дата окончания</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h1>Участники</h1>\n          <ul>\n            <li *ngFor=\"let person of people\">\n              <input type=\"checkbox\" class=\"form-control\" [(ngModel)]=\"person.is\"  name=\"personName\">\n              <label for=\"personName\">{{person.fName}}</label>\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <a href=\"/task-list\" type=\"submit\" class=\"btn btn-cancel\">Отмена</a>\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\n        </div>\n      </form>\n      <div style=\"color: red;  border-radius: 5px; padding: 10px; font-size: 16px\">{{errorMsg}}</div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <h1>Редактирование задания</h1>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <form (ngSubmit)=\"updateTask(task.id, task)\" #taskForm=\"ngForm\">\n        <div class=\"form-group\">\n          <label>Название</label>\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"task.taskName\" name=\"name\" required>\n        </div>\n        <div class=\"form-group\">\n          <label>Дата начала</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.startDate\" name=\"startDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <label>Дата окончания</label>\n          <input type=\"date\" class=\"form-control\" [(ngModel)]=\"task.endDate\" name=\"endDate\" required>\n        </div>\n        <div class=\"form-group\">\n          <h2>Участники</h2>\n          <ul>\n            <li *ngFor=\"let person of people\">\n              <label class=\"checkbox-inline\">\n                <input type=\"checkbox\" [(ngModel)]=\"person.is\" name=\"personName\"> <label>{{person.fName}}</label>\n              </label>\n            </li>\n          </ul>\n        </div>\n        <div class=\"form-group\">\n          <a href=\"/task-list\" type=\"submit\" class=\"btn btn-cancel\">Отмена</a>\n          <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!taskForm.form.valid\">Сохранить</button>\n        </div>\n      </form>\n      <div class=\"error\">{{errorMsg}}</div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -312,7 +311,6 @@ var TaskEditComponent = /** @class */ (function () {
     TaskEditComponent.prototype.updateTask = function (id, data) {
         var _this = this;
         data.person = this.people.filter(function (p) { return p.is; });
-        console.log(data.person);
         this.http.put('/tasks/' + id, data)
             .subscribe(function (res) {
             _this.router.navigate(['/task-list']);
@@ -346,10 +344,26 @@ var TaskEditComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Person", function() { return Person; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Task", function() { return Task; });
+/* harmony import */ var json_ignore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! json-ignore */ "./node_modules/json-ignore/index.js");
+/* harmony import */ var json_ignore__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(json_ignore__WEBPACK_IMPORTED_MODULE_0__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 var Person = /** @class */ (function () {
     function Person() {
         this.is = false;
     }
+    __decorate([
+        Object(json_ignore__WEBPACK_IMPORTED_MODULE_0__["jsonIgnore"])(),
+        __metadata("design:type", Object)
+    ], Person.prototype, "is", void 0);
     return Person;
 }());
 

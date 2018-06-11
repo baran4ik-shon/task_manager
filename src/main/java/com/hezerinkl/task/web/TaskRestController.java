@@ -45,7 +45,7 @@ public class TaskRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addTask(@RequestBody Task task) {
         if(task.getStartDate().isAfter(task.getEndDate()))
-        throw new DateException("Дата начала не должна быть меньше даты окончания");
+        throw new DateException("Дата начала не может быть меньше даты окончания");
         String busy = taskService.checkBusy(task);
             if (busy != null) {
                 throw new PersonBusyException(busy);
@@ -58,7 +58,7 @@ public class TaskRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public void updateTask(@PathVariable Long id, @RequestBody Task task) {
         if(task.getStartDate().isAfter(task.getEndDate()))
-            throw new DateException("Дата начала не должна быть меньше даты окончания");
+            throw new DateException("Дата начала не может быть меньше даты окончания");
         String busy = taskService.checkBusy(task);
         if (busy != null) {
             throw new PersonBusyException(busy);

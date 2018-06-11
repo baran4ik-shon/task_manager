@@ -22,11 +22,11 @@ public class Task {
     @ManyToMany(cascade = {CascadeType.REFRESH})
     private List<Person> person;
 
-    public String getName() {
+    public String getTaskName() {
         return taskName;
     }
 
-    public void setName(String taskName) {
+    public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
 

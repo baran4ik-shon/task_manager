@@ -4,23 +4,24 @@
     <div class="col-md-6">
       <form (ngSubmit)="addTask(task)" #taskForm="ngForm">
         <div class="form-group">
-          <label for="name">Название</label>
+          <label>Название</label>
           <input type="text" class="form-control" [(ngModel)]="task.taskName" name="name" required>
         </div>
         <div class="form-group">
-          <label for="startDate">Дата начала</label>
+          <label>Дата начала</label>
           <input type="date" class="form-control" [(ngModel)]="task.startDate" name="startDate" required>
         </div>
         <div class="form-group">
-          <label for="endDate">Дата окончания</label>
+          <label>Дата окончания</label>
           <input type="date" class="form-control" [(ngModel)]="task.endDate" name="endDate" required>
         </div>
         <div class="form-group">
-          <h1>Участники</h1>
+          <h2>Участники</h2>
           <ul>
             <li *ngFor="let person of people">
-              <input type="checkbox" class="form-control" [(ngModel)]="person.is"  name="personName">
-              <label for="personName">{{person.fName}}</label>
+              <label class="checkbox-inline">
+                <input type="checkbox" [(ngModel)]="person.is" name="personName"> <label>{{person.fName}}</label>
+              </label>
             </li>
           </ul>
         </div>
@@ -29,7 +30,7 @@
           <button type="submit" class="btn btn-success" [disabled]="!taskForm.form.valid">Сохранить</button>
         </div>
       </form>
-      <div style="color: red;  border-radius: 5px; padding: 10px; font-size: 16px">{{errorMsg}}</div>
+      <div class="error">{{errorMsg}}</div>
     </div>
   </div>
 </div>

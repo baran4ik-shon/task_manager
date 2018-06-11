@@ -24,7 +24,6 @@ export class AddTaskComponent implements OnInit {
   }
 
   addTask(data : Task) {
-    this.people.forEach(p => console.log(p.is));
     data.person = this.people.filter(p => p.is);
     this.http.post('/tasks', data)
       .subscribe(() => {

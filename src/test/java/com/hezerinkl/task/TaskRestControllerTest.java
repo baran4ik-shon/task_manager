@@ -38,7 +38,7 @@ public class TaskRestControllerTest {
     @Test
     public void whenAddTask() {
         Task task = new Task();
-        task.setName("Unit test");
+        task.setTaskName("Unit test");
         task.setStartDate(LocalDate.of(2018,6,3));
         task.setEndDate(LocalDate.of(2018,6,4));
         task.setPerson(Arrays.asList(new Person().setId(3L)));
@@ -48,7 +48,7 @@ public class TaskRestControllerTest {
     @Test
     public void whenDeleteTask() {
         Task task = new Task();
-        task.setName("Unit test");
+        task.setTaskName("Unit test");
         task.setStartDate(LocalDate.of(2018,6,3));
         task.setEndDate(LocalDate.of(2018,6,4));
         task.setPerson(Arrays.asList(new Person().setId(3L)));

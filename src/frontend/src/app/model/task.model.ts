@@ -1,6 +1,10 @@
+import {jsonIgnore} from "json-ignore";
+
+
 export class Person {
   id: number;
   fName: string;
+  @jsonIgnore ()
   is  = false;
 }
 
