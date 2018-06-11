@@ -82,7 +82,7 @@ public class TaskServiceTest {
         Task task4 = new Task();
         task4.setTaskName("task 4");
         task4.setStartDate(LocalDate.of(2018,5,23));
-        task4.setEndDate(LocalDate.of(2018,6,25));
+        task4.setEndDate(LocalDate.of(2018,6,20));
         task4.setPerson(Arrays.asList(new Person().setId(2L),new Person().setId(4L)));
         tasks.add(task4);
 

@@ -1,7 +1,5 @@
 package com.hezerinkl.task.domains;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +10,6 @@ public class Task {
     @Id @GeneratedValue
     @Column(name = "task_id")
     private Long id;
-    @JsonProperty("taskName")
     @Column(name = "task_name")
     private String taskName;
     @Column(name = "start_date")

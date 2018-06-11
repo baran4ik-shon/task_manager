@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Person, Task} from '../model/task.model';
 
@@ -9,10 +9,12 @@ import {Person, Task} from '../model/task.model';
   styleUrls: ['../add-task/add-task.component.css']
 })
 export class TaskEditComponent implements OnInit {
-  task : Task;
-  people : Person[];
+  task: Task;
+  people: Person[];
   errorMsg: string;
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
+
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.task = new Task();
@@ -23,18 +25,18 @@ export class TaskEditComponent implements OnInit {
   }
 
   getTask(id) {
-    this.http.get<Task>('/tasks/'+id).subscribe(data => {
+    this.http.get<Task>('/tasks/' + id).subscribe(data => {
       this.task = data;
     });
   }
 
-  updateTask(id,data:Task) {
+  updateTask(id, data: Task) {
     data.person = this.people.filter(p => p.is);
-    this.http.put('/tasks/'+ id, data)
+    this.http.put('/tasks/' + id, data)
       .subscribe(res => {
           this.router.navigate(['/task-list']);
         }, (err) => {
-        this.errorMsg = (<HttpErrorResponse> err).error.message;
+          this.errorMsg = (<HttpErrorResponse> err).error.message;
         }
       );
   }

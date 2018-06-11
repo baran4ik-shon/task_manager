@@ -45,6 +45,7 @@ public class TaskRepositoryTest {
         // when
         Task task1 = taskRepository.findById(task.getId()).get();
         assertEquals(task1.getTaskName(), task.getTaskName());
+        assertEquals(task1.getStartDate(), task.getStartDate());
         assertEquals(task1.getPerson(), task.getPerson());
     }
 }

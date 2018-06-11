@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -41,7 +42,7 @@ public class TaskRestControllerTest {
         task.setTaskName("Unit test");
         task.setStartDate(LocalDate.of(2018,6,3));
         task.setEndDate(LocalDate.of(2018,6,4));
-        task.setPerson(Arrays.asList(new Person().setId(3L)));
+        task.setPerson(Collections.singletonList(new Person().setId(3L)));
        restTemplate.put("http://localhost:8080/tasks", task);
     }
 
@@ -51,7 +52,7 @@ public class TaskRestControllerTest {
         task.setTaskName("Unit test");
         task.setStartDate(LocalDate.of(2018,6,3));
         task.setEndDate(LocalDate.of(2018,6,4));
-        task.setPerson(Arrays.asList(new Person().setId(3L)));
+        task.setPerson(Collections.singletonList(new Person().setId(3L)));
         restTemplate.delete("http://localhost:8080/tasks", task);
     }
 
