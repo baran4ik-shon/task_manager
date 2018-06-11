@@ -28,12 +28,10 @@ public class TaskRestController {
         return taskService.getAllTasks();
     }
 
-
     @GetMapping("{id}")
     public Optional<Task> getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id);
     }
-
 
     @GetMapping("people")
     public  Iterable<Person> getAllPeople() {
